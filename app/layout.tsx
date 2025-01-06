@@ -20,7 +20,7 @@ export default function RootLayout({
   const ErudaProvider = dynamic(
     () => import("../components/Eruda").then((c) => c.ErudaProvider),
     {
-      ssr: false,
+      ssr: true,
     }
   );
   return (

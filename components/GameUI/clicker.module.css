@@ -1,0 +1,12 @@
+.activeButton {
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+  }
+  
+.disabledButton {
+    background-color: #ccc;
+    color: gray;
+    cursor: not-allowed;
+  }
+  
