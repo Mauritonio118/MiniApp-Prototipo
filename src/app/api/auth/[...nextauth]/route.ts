@@ -32,7 +32,7 @@ const authOptions: NextAuthOptions = {
 
       try {
         // Comprobar si el usuario ya existe en la base de datos
-        const rows = await connectDB.query('SELECT ID FROM users WHERE World_ID = ?', [World_ID]);
+        const rows = await connectDB.query('SELECT World_ID FROM users WHERE World_ID = ?', [World_ID]);
 
         if (rows.length === 0) {
           // Si no existe, crea la entrada en la base de datos
