@@ -6,7 +6,6 @@ import { getServerSession } from "next-auth";
 export async function GET(request: Request) {
   try {
     const session = await getServerSession();
-    console.log("OOOOOOOOOOOOOO session;", session)
 
     if (!session || !session.user?.name) {
       return NextResponse.json({ success: false, message: "Usuario no autenticado" }, { status: 401 });
