@@ -2,7 +2,6 @@
 import styles from "./clicker.module.css";
 import { useSession, signIn } from "next-auth/react";
 import { useState } from "react";
-import { useEffect } from "react";
 
 export function Clicker({ onClickUpdate }: { onClickUpdate: (newClickCount: number) => void }) {
   const { data: session, status } = useSession();
