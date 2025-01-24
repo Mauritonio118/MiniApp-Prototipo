@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "test_has.ts"  ],
   "exclude": [
     "node_modules"
   ]
