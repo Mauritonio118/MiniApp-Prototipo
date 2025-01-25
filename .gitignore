@@ -49,3 +49,4 @@ contracts/MinterV2.sol
 src/app/api/get-mintable/routes.ts
 src/components/GameUI/minter.tsx
 contracts/MinterV1.sol
+foundry/src/Contract.sol
