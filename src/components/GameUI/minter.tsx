@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MiniKit } from '@worldcoin/minikit-js'
 import { Transaction } from "ethers";
 
@@ -14,20 +14,21 @@ export function Minter() {
       setIsLoading(true);
   
       // Obtener los datos firmados del backend
-      const response = await fetch(`/api/get-mintable`, {
+      const response = await fetch('/api/get-mintable', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ World_ID: session.user.name }),
       });
-      const { mintable, timestamp } = await response.json();
+      const responseData = await response.json();
+      console.log("Tipo de variable:", typeof responseData);
+      console.log("Contenido de la variable:", responseData.abi);
   
-      // Interactuar con el contrato
+//      // Interactuar con el contrato
       const tx = await MiniKit.commandsAsync.sendTransaction({
-          address: string;
-          abi: Abi ;
-          functionName: ContractFunctionName;
-          args: ContractFunctionArgs;
-
+          address: responseData.address,
+          abi: responseData.abi,
+          functionName: responseData.functionName,
+          args: responseData.args
       });
   
       console.log("Transacción enviada:", tx);
@@ -38,5 +39,5 @@ export function Minter() {
     }
   };
   
-    return <button>Mint</button>;
+    return <button onClick={handleMint} >Mint</button>;
   }
