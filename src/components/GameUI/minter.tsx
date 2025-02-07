@@ -2,7 +2,8 @@
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { MiniKit } from '@worldcoin/minikit-js'
-import { Transaction } from "ethers";
+
+
 
 export function Minter() {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,10 +26,14 @@ export function Minter() {
   
 //      // Interactuar con el contrato
       const tx = await MiniKit.commandsAsync.sendTransaction({
-          address: responseData.address,
-          abi: responseData.abi,
-          functionName: responseData.functionName,
-          args: responseData.args
+          transaction: [
+            {
+              address: responseData.address,
+              abi: responseData.abi,
+              functionName: responseData.functionName,
+              args: responseData.args,
+            },
+          ],
       });
   
       console.log("Transacción enviada:", tx);
@@ -41,3 +46,4 @@ export function Minter() {
   
     return <button onClick={handleMint} >Mint</button>;
   }
+

@@ -1,12 +1,5 @@
-import { ethers } from "ethers";
 import { connectDB } from "@/lib/DB"; // Conexión a tu base de datos
 import { NextResponse } from "next/server";
-
-//PARA BORRAR
-// Clave privada del backend (asegúrate de protegerla correctamente)
-//const PRIVATE_KEY = process.env.PRIVATE_KEY;
-//if (!PRIVATE_KEY) throw new Error("PRIVATE_KEY no está definida");
-//const signer = new ethers.Wallet(PRIVATE_KEY);
 
 export  async function POST(request: Request) {
   try {
@@ -31,27 +24,16 @@ export  async function POST(request: Request) {
     
     console.log("MONTO MINTEABLE:", mintable)
 
-    //PARA BORRAR
-    // Crear un mensaje para firmar
-    //const messageHash = ethers.solidityPackedKeccak256(
-    //  ["uint256"],
-    //  [mintable]
-    //);
+//wrap argumentos -> todo en string
+//Multiples arg visualmente array realmente string
 
-    // Firmar el mensaje
-    //const signature = await signer.signMessage(ethers.getBytes(messageHash));
-
-    // Enviar respuesta al frontend
     console.log("DATOS AL FRON:")
     return NextResponse.json({
-//      address: "0xc1399662D5d1d643486C917339a40c16b579F0f7",  //Contrato mainnet
-      address: 0x373Cac5cA12D0c35d35971d1F042F6D6A6B12908,  //Contrato testnet
-
+      address: process.env.MINTER_V3,  //Contrato testnet
       abi: process.env.ABI_MINT,
-      functionName: "mint",
-      args: [mintable],
+      functionName: process.env.NAME_MINT,
+      args: [mintable.toString()],
     });
-
 
 
 
