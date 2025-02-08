@@ -29,10 +29,10 @@ export  async function POST(request: Request) {
 
     console.log("DATOS AL FRON:")
     return NextResponse.json({
-      address: process.env.MINTER_V3,  //Contrato testnet
-      abi: process.env.ABI_MINT,
-      functionName: process.env.NAME_MINT,
-      args: [mintable.toString()],
+      address: process.env.MINTER_V4,  //Contrato testnet
+      abi: process.env.ABI_MINT_V4,
+      functionName: process.env.NAME_MINT_V4,
+      args: mintable.toString(),
     });
 
 
