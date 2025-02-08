@@ -6,9 +6,9 @@ export function PointsDisplay() {
     const { pointsTotal } = useContext(GameContext);
   
     return (
-      <div className="p-4 bg-gray-800 text-white text-center rounded-lg">
-        <h2 className="text-xl font-bold">Puntos Totales</h2>
-        <p className="text-3xl font-mono mt-2">{pointsTotal.toFixed(2)}</p>
+      <div className="bg-white/10 p-6 rounded-lg backdrop-blur-sm text-center">
+        <h2 className="text-2xl font-semibold mb-2">Ponist!!!</h2>
+        <p className="text-4xl font-mono">{pointsTotal.toFixed(2)}</p>
       </div>
     );
   }
