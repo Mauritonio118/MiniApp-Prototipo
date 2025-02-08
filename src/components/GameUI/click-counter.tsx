@@ -31,9 +31,9 @@ export function ClickCounter() {
   }, []);
 
   return (
-    <div className="p-4 bg-gray-800 text-white text-center rounded-lg">
-      <h2 className="text-xl font-bold">Clicks para Mint</h2>
-      <p className="text-3xl font-mono mt-2">{clicksForMint}</p>
+<div className="bg-white/10 p-6 rounded-lg backdrop-blur-sm text-center">
+      <h2 className="text-2xl font-semibold mb-2">Clicks para Mint</h2>
+      <p className="text-4xl font-mono">{clicksForMint}</p>
     </div>
   );
 }

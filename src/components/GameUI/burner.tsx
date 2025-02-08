@@ -45,12 +45,8 @@ export function Burner() {
     console.log("COMMANDPAYLOAD", commandPayload)
 
     if(finalPayload.status === "success"){
-      console.log("DATA",Number(responseData.args)/10**18)
       const totalMinted = Number(responseData.args)/10**18;
-      console.log("totalMinted", totalMinted, typeof totalMinted),
-      console.log("pointsForSecond", pointsForSecond, typeof pointsForSecond)
-      console.log("clicksForMint", clicksForMint, typeof clicksForMint)
-      console.log("")
+
       setClicksForMint((prevClicks) => {
         const newClicks = prevClicks - totalMinted;
         console.log("Actualizando clicksForMint:", newClicks);
@@ -58,13 +54,10 @@ export function Burner() {
       });
     
       setPointsForSecond((prevPoints) => {
-        const newPoints = prevPoints + totalMinted * 0.1;
+        const newPoints = prevPoints + totalMinted;
         console.log("Actualizando pointsForSecond:", newPoints);
         return newPoints;
       });
-      console.log("POST pointsForSecond", pointsForSecond, typeof pointsForSecond)
-      console.log("POST clicksForMint", clicksForMint, typeof clicksForMint)
-      console.log("")
     }
     
     } catch (error) {

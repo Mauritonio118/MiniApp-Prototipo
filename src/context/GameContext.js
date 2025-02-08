@@ -13,7 +13,7 @@ export const GameProvider = ({ children }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setPointsTotal((prevPoints) => prevPoints + pointsForSecond);
-    }, 1000); // Actualiza cada segundo
+    }, 250); // Actualiza cada segundo
 
     return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
   }, [pointsForSecond]); // Se ejecuta cuando cambia `pointsForSecond`
