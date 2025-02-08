@@ -1,7 +1,7 @@
 import { PayBlock } from "@/components/Pay";
 import { SignIn } from "@/components/SignIn";
 import { VerifyBlock } from "@/components/Verify";
-import { Minter, ClickStats } from "@/components/GameUI";
+import { Minter, ClickStats, Burner } from "@/components/GameUI";
 
 export default function Home() {
   return (
@@ -11,6 +11,8 @@ export default function Home() {
       <ClickStats />
       <br></br>
       <Minter />
+      <br></br>
+      <Burner />
       <br></br>
       <VerifyBlock />
       <br></br>
