@@ -1,11 +1,15 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { MiniKit, SendTransactionInput } from '@worldcoin/minikit-js'
+import GameContext from "../../context/GameContext";
+
+
 
 export function Burner() {
   const [isLoading, setIsLoading] = useState(false);
   const { data: session, status } = useSession();
+  const { setClicksForMint, setPointsForSecond, pointsForSecond, clicksForMint } = useContext(GameContext);
 
   const handleBurn = async () => {
     if (!session?.user) return;
@@ -36,18 +40,31 @@ export function Burner() {
   
     // Interactuar con el contrato
     console.log("PRE TRANSACCION")
-    const { finalPayload} = await MiniKit.commandsAsync.sendTransaction(transac);
+    const {commandPayload, finalPayload} = await MiniKit.commandsAsync.sendTransaction(transac);
+    console.log("FINALPAYLOAD", finalPayload)
+    console.log("COMMANDPAYLOAD", commandPayload)
 
     if(finalPayload.status === "success"){
-      console.log("success")
-      // fetch('/api/post-minteable', {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ 
-      //     World_ID: session.user.name,
-      //     amountMintedOnChain: responseData.args
-      //   }),
-      // });
+      console.log("DATA",Number(responseData.args)/10**18)
+      const totalMinted = Number(responseData.args)/10**18;
+      console.log("totalMinted", totalMinted, typeof totalMinted),
+      console.log("pointsForSecond", pointsForSecond, typeof pointsForSecond)
+      console.log("clicksForMint", clicksForMint, typeof clicksForMint)
+      console.log("")
+      setClicksForMint((prevClicks) => {
+        const newClicks = prevClicks - totalMinted;
+        console.log("Actualizando clicksForMint:", newClicks);
+        return newClicks;
+      });
+    
+      setPointsForSecond((prevPoints) => {
+        const newPoints = prevPoints + totalMinted * 0.1;
+        console.log("Actualizando pointsForSecond:", newPoints);
+        return newPoints;
+      });
+      console.log("POST pointsForSecond", pointsForSecond, typeof pointsForSecond)
+      console.log("POST clicksForMint", clicksForMint, typeof clicksForMint)
+      console.log("")
     }
     
     } catch (error) {
