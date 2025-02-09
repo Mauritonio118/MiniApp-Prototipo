@@ -1,4 +1,5 @@
 export {Clicker} from './clicker'
 export {Minter} from './minter'
-export {ClickStats} from './click-stats'
- 
+export {Burner} from './burner'
+export {ClickCounter} from './click-counter'
+export {PointsDisplay} from './points-display'

@@ -1,10 +1,12 @@
 "use client";
 import styles from "./clicker.module.css";
 import { useSession, signIn } from "next-auth/react";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import GameContext from "../../context/GameContext";
 
-export function Clicker({ onClickUpdate }: { onClickUpdate: (newClickCount: number) => void }) {
+export function Clicker() {
   const { data: session, status } = useSession();
+  const { setClicksForMint } = useContext(GameContext);
   const isUserLoggedIn = status === "authenticated";
   const [isLoading, setIsLoading] = useState(false);
 
@@ -23,7 +25,7 @@ export function Clicker({ onClickUpdate }: { onClickUpdate: (newClickCount: numb
       const data = await response.json();
 
       if (data.success) {
-        onClickUpdate(data.newClickCount); // Enviar la señal para actualizar el contador
+        setClicksForMint((prevClicks) => prevClicks + 1); // Aumentar clicksForMint en 1
       } else {
         console.error('Error en la respuesta del backend:', data.message);
       }
