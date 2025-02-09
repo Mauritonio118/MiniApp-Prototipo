@@ -1,8 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
-import { MiniKit } from '@worldcoin/minikit-js'
-import { Transaction } from "ethers";
+import { useState, useEffect } from "react";
+import { MiniKit, SendTransactionInput } from '@worldcoin/minikit-js'
 
 export function Minter() {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,24 +12,40 @@ export function Minter() {
     try {
       setIsLoading(true);
   
-      // Obtener los datos firmados del backend
-      const response = await fetch(`/api/get-mintable`, {
+      // Obtener los datos de minteo del backend
+      const response = await fetch('/api/get-mintable', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ World_ID: session.user.name }),
       });
-      const { mintable, timestamp } = await response.json();
-  
-      // Interactuar con el contrato
-      const tx = await MiniKit.commandsAsync.sendTransaction({
-          address: string;
-          abi: Abi ;
-          functionName: ContractFunctionName;
-          args: ContractFunctionArgs;
+      const responseData = await response.json();
 
-      });
+      const transac: SendTransactionInput = {
+        transaction: [
+          {
+            address: responseData.address,
+            abi: responseData.abi,
+            functionName: responseData.functionName,
+            args: [responseData.args] ,
+          },
+        ],
+      }
   
-      console.log("Transacción enviada:", tx);
+    // Interactuar con el contrato
+    const { finalPayload} = await MiniKit.commandsAsync.sendTransaction(transac);
+
+    if(finalPayload.status === "success"){
+      console.log("success")
+      fetch('/api/post-minteable', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          World_ID: session.user.name,
+          amountMintedOnChain: responseData.args
+        }),
+      });
+    }
+    
     } catch (error) {
       console.error("Error en el proceso de minting:", error);
     } finally {
@@ -38,5 +53,7 @@ export function Minter() {
     }
   };
   
-    return <button>Mint</button>;
+    return <button onClick={handleMint} >Mint</button>;
   }
+
+  
